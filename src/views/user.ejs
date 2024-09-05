@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>User Details</h1>
+
+    <% if (user) { %>
+        <table>
+            <tr>
+                <th>ID</th>
+                <td><%= user.id %></td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td><%= user.name %></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><%= user.email %></td>
+            </tr>
+        </table>
+    <% } else { %>
+        <p>User not found</p>
+    <% } %>
+
+    <a href="/api/users">Back to Users List</a>
+    <a href="/">Back to main list</a>
+</body>
+</html>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+h1 {
+    text-align: center;
+    color: #444;
+}
+
+
+table {
+    width: 50%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    text-decoration: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 200px;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+
+    a {
+        width: 100%;
+    }
+}
+</style>

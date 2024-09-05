@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Information</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Weather Information</h1>
+
+    <% if (weather) { %>
+        <table>
+            <tr>
+                <th>City</th>
+                <td><%= weather.name %></td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td><%= weather.sys.country %></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td><%= weather.weather[0].description %></td>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+                <td><%= weather.main.temp.toFixed(1) %>°C</td>
+            </tr>
+            <tr>
+                <th>Feels Like</th>
+                <td><%= weather.main.feels_like.toFixed(1) %>°C</td>
+            </tr>
+            <tr>
+                <th>Min Temperature</th>
+                <td><%= weather.main.temp_min.toFixed(2) %>°C</td>
+            </tr>
+            <tr>
+                <th>Max Temperature</th>
+                <td><%= weather.main.temp_max.toFixed(2) %>°C</td>
+            </tr>
+            <tr>
+                <th>Pressure</th>
+                <td><%= weather.main.pressure %> hPa</td>
+            </tr>
+            <tr>
+                <th>Humidity</th>
+                <td><%= weather.main.humidity %>%</td>
+            </tr>
+            <tr>
+                <th>Wind Speed</th>
+                <td><%= weather.wind.speed.toFixed(1) %> m/s</td>
+            </tr>
+            <tr>
+                <th>Wind Direction</th>
+                <td><%= weather.wind.deg %>°</td>
+            </tr>
+            <tr>
+                <th>Sunrise</th>
+                <td><%= new Date((weather.sys.sunrise + weather.timezone) * 1000).toLocaleTimeString() %></td>
+            </tr>
+            <tr>
+                <th>Sunset</th>
+                <td><%= new Date((weather.sys.sunset + weather.timezone) * 1000).toLocaleTimeString() %></td>
+            </tr>
+            <tr>
+                <th>Timezone</th>
+                <td><%= weather.timezone / 3600 %> hours</td>
+            </tr>
+        </table>
+    <% } else { %>
+        <p>Weather data not available</p>
+    <% } %>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e0f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+h1 {
+    text-align: center;
+    color: #00796b;
+    margin-bottom: 20px;
+}
+
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+th {
+    background-color: #b2dfdb;
+    color: #333;
+    font-weight: bold;
+}
+
+
+tr:hover {
+    background-color: #e0f2f1;
+}
+
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    text-decoration: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 200px;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+}
+
+</style>
