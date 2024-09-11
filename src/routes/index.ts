@@ -2,11 +2,13 @@ import express, { Request, Response } from 'express';
 import WeatherService from '../weather/weather';
 import JokeService from '../jokes/jokeService';
 import UserService from '../users/UserService';
+import Scraper from '../web_scraper/scraper';
  
 const router = express.Router();
 const weatherService = new WeatherService();
 const jokeService = new JokeService();
 const userService = new UserService();
+const scraper = new Scraper();  
 
 
 /**
@@ -115,6 +117,33 @@ router.get('/', async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Error rendering home page:", error);
         res.status(500).json({ error: 'An error occurred while rendering the home page.' });
+    }
+});
+
+
+/**
+ * @route GET /scrape
+ * @description Scrapes data from a hardcoded URL and renders it using the 'scraper' EJS template.
+ * 
+ * This route uses a `Scraper` instance to fetch and parse data from example.com. The result is rendered
+ * using the 'scraper' view. In case of an error, a 500 status code and error message are returned.
+ * 
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object used to render the view or return an error.
+ * 
+ * @returns {void} - Renders the 'scraper' view with scraped data or returns a 500 error.
+ */
+router.get('/scrape', async (req: Request, res: Response) => {
+    const url = 'https://example.com'
+
+    try {
+        const scraper = new Scraper();
+        const scrapedData = await scraper.WebScraper(url);
+
+        res.render('scraper', { data: scrapedData });
+    } catch (error) {
+        console.error('Error scraping the webpage:', error);
+        res.status(500).json({ error: (error as Error).message });
     }
 });
 
