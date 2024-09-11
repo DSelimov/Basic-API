@@ -1,4 +1,8 @@
 import WeatherResponseInterface from '../Interfaces/WeatherResponseInterface';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY as string; 
 
 /**
  * Service class for fetching and formatting weather data.
@@ -7,8 +11,9 @@ import WeatherResponseInterface from '../Interfaces/WeatherResponseInterface';
  * @description Provides methods to retrieve and format weather information from the OpenWeatherMap API.
  */
 class WeatherService {
-    private readonly API_KEY: string = '419eeea419f1aa4b3d04a3418850e7d6'; 
+    
     private readonly BASE_URL: string = 'https://api.openweathermap.org/data/2.5/weather';
+
 
      /**
      * Formats the weather data into a human-readable string.
@@ -60,7 +65,7 @@ class WeatherService {
      */
     public async getWeather(city: string): Promise<WeatherResponseInterface> {
         try {
-            const url = `${this.BASE_URL}?q=${city}&appid=${this.API_KEY}&units=metric`; 
+            const url = `${this.BASE_URL}?q=${city}&appid=${WEATHER_API_KEY}&units=metric`; 
             const response = await fetch(url);
 
             if (!response.ok) {

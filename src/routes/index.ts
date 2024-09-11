@@ -4,15 +4,18 @@ import JokeService from '../jokes/jokeService';
 import UserService from '../users/UserService';
 import Scraper from '../web_scraper/scraper';
 import GeolocationService from '../geolocation/GeolocationService';
- 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const router = express.Router();
 const weatherService = new WeatherService();
 const jokeService = new JokeService();
 const userService = new UserService();
-const scraper = new Scraper();  
-const apiKey = '4c927a554c9146d18bc09391f6b923a5'; 
-const geolocationService = new GeolocationService(apiKey);
+const scraper = new Scraper();
 
+const apiKey = process.env.GEOLOCATION_API_KEY as string; 
+const geolocationService = new GeolocationService(apiKey);
 
 /**
  * @module Routes
@@ -137,11 +140,12 @@ router.get('/', async (req: Request, res: Response) => {
  * @returns {void} - Renders the 'scraper' view with scraped data or returns a 500 error.
  */
 router.get('/scrape', async (req: Request, res: Response) => {
-    const url = 'https://example.com'
-
+    const url = req.query.url as string;
+    const formattedUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
+    
     try {
         const scraper = new Scraper();
-        const scrapedData = await scraper.WebScraper(url);
+        const scrapedData = await scraper.WebScraper(formattedUrl);
 
         res.render('scraper', { data: scrapedData });
     } catch (error) {
