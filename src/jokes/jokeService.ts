@@ -26,7 +26,6 @@ class JokeService {
             }
 
             const data = await response.json() as JokeResponseInterface;
-            console.log(data)
             return data;
         } catch (error) {
             throw new Error(`Error fetching joke: ${(error as Error).message}`);
