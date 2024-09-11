@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Data</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Geolocation Data</h1>
+        <% if (data) { %>
+            <div class="geolocation-info">
+                <h2>Information for IP Address: <%= data.ip %></h2>
+                <ul>
+                    <li><strong>Domain Name:</strong> <%= data.domainName %></li>
+                    <li><strong>IP Address:</strong> <%= data.ip %></li>
+                    <li><strong>Country:</strong> <%= data.country_name %></li>
+                    <li><strong>State/Region:</strong> <%= data.state_prov %></li>
+                    <li><strong>City:</strong> <%= data.city %></li>
+                    <li><strong>ZIP Code:</strong> <%= data.zipcode %></li>
+                    <li><strong>Latitude:</strong> <%= data.latitude %></li>
+                    <li><strong>Longitude:</strong> <%= data.longitude %></li>
+                    <li><strong>ISP:</strong> <%= data.isp %></li>
+                    <li><strong>Organization:</strong> <%= data.org %></li>
+                    <li><strong>Continent:</strong> <%= data.continent_name %></li>
+                    <li><strong>Region Code:</strong> <%= data.region_code %></li>
+                    <li><strong>Country Code:</strong> <%= data.country_code2 %></li>
+                    <li><strong>Country Code (3):</strong> <%= data.country_code3 %></li>
+                    <li><strong>Time Zone:</strong> <%= data.time_zone %></li>
+                    <li><strong>Currency:</strong> <%= data.currency.name %> (<%= data.currency.code %>)</li>
+                    <li><strong>Calling Code:</strong> <%= data.calling_code %></li>
+                </ul>
+            </div>
+        <% } else { %>
+            <p>No data available.</p>
+        <% } %>
+    </div>
+</body>
+</html>
+
+<style> 
+    /* public/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+.geolocation-info {
+    margin-top: 20px;
+}
+
+.geolocation-info h2 {
+    color: #007bff;
+}
+
+.geolocation-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.geolocation-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.geolocation-info li:last-child {
+    border-bottom: none;
+}
+
+strong {
+    color: #555;
+}
+
+</style>

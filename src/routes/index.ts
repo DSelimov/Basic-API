@@ -3,12 +3,15 @@ import WeatherService from '../weather/weather';
 import JokeService from '../jokes/jokeService';
 import UserService from '../users/UserService';
 import Scraper from '../web_scraper/scraper';
+import GeolocationService from '../geolocation/GeolocationService';
  
 const router = express.Router();
 const weatherService = new WeatherService();
 const jokeService = new JokeService();
 const userService = new UserService();
 const scraper = new Scraper();  
+const apiKey = '4c927a554c9146d18bc09391f6b923a5'; 
+const geolocationService = new GeolocationService(apiKey);
 
 
 /**
@@ -143,6 +146,30 @@ router.get('/scrape', async (req: Request, res: Response) => {
         res.render('scraper', { data: scrapedData });
     } catch (error) {
         console.error('Error scraping the webpage:', error);
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
+
+/**
+ * Route to get geolocation data for a specified IP address.
+ * 
+ * @route GET /geolocation
+ * @param {Request} req - The request object containing the IP address query parameter.
+ * @param {Response} res - The response object used to send the geolocation data or error message.
+ * @returns {void}
+ */
+router.get('/geolocation', async (req: Request, res: Response) => {
+    const ipAddress = req.query.ipAddress as string;
+
+    if (!ipAddress) {
+        return res.status(400).json({ error: 'IP address query parameter is required' });
+    }
+
+    try {
+        const geolocationData = await geolocationService.getGeolocation(ipAddress);
+        res.render('geolocation', { data: geolocationData });
+    } catch (error) {
+        console.error('Error retrieving geolocation data:', error);
         res.status(500).json({ error: (error as Error).message });
     }
 });
